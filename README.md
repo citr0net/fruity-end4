@@ -1,7 +1,7 @@
 # fruity-end4
 
 > [!NOTE]
-> The current version is v4.0
+> The current version is v4.1
 
 A modification to [end-4 dotfiles](https://github.com/end-4/dots-hyprland/) that modifies end-4 in a favorable way. The script fully handles modifying the hyprland configurations and adding entries to the keybinds screen.
 
@@ -12,6 +12,7 @@ A modification to [end-4 dotfiles](https://github.com/end-4/dots-hyprland/) that
 * Add Floating Calculators and clocks
 * Patches some keybinds to mitigate issues
 * Fix multiple monitors
+* Replace fish with ZSH
 
 ## Instalation:
 * Run Installer.py

@@ -60,19 +60,18 @@ whatToAddToCustomKeybinds = [
 ]
 
 def fileOverwrite(filePath, toRewrite, replacementText):
-    # FIX: Works with multi-line blocks instead of single-line matches
     if not os.path.exists(filePath):
         return
-
     with open(filePath, 'r') as f:
-        content = f.read()  # FIX: read whole file so multi-line patterns can match
-
-    # FIX: Replace full block, not per-line occurrences
+        content = f.read()  
     new_content = content.replace(toRewrite, replacementText)
-
     with open(filePath, 'w') as f:
-        f.write(new_content)  # FIX: write full file back without truncation issues
+        f.write(new_content) 
 
+def replaceFile(fileLocation, newFile):
+    os.makedirs(os.path.dirname(fileLocation), exist_ok=True)
+    with open(fileLocation, 'w') as f:
+        f.write(newFile)
 
 def checkEnd4():
     checkerTmp = subprocess.run(['cat', '/home/'+username+'/.config/illogical-impulse/config.json'], capture_output=True)
@@ -422,8 +421,17 @@ def betterTerm():
     userChoice = input('Would you like to apply this patch y/N: ')
     if userChoice.lower() == 'n':
         print('Skipped!')
+        return
     else:
-        toGrabFromZSH = requests.get()
+        toGrabFromZSH = requests.get('https://raw.githubusercontent.com/citr0net/fruity-end4/main/resources/betterTerminal/.zshrc').text
+        toGrabFromKitty = requests.get('https://raw.githubusercontent.com/citr0net/fruity-end4/main/resources/betterTerminal/.config/kitty/kitty.conf').text
+        toGrabFromStarship = requests.get('https://raw.githubusercontent.com/citr0net/fruity-end4/main/resources/betterTerminal/.config/starship.toml').text
+
+        replaceFile(userHomeDir + '/.config/starship.toml', toGrabFromStarship)
+        replaceFile(userHomeDir + '/.config/kitty/kitty.conf', toGrabFromKitty)
+        replaceFile(userHomeDir + '/.zshrc', toGrabFromZSH)
+
+
 
 def addNewKeybinds():
     for key in whatToAddToCustomKeybinds:
@@ -448,6 +456,7 @@ autoStartSteam()
 mouseAcceleration()
 monitorPatches()
 disableSleep()
+betterTerm()
 
 # Write to Disk
 addNewKeybinds()
