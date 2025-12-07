@@ -12,6 +12,7 @@ import sys
 import subprocess
 import fileinput
 import shutil
+import requests
 
 username = os.getlogin()
 userHomeDir = '/home/'+username+'/'
@@ -145,7 +146,7 @@ def chromiumBrowserFix():
 
 
 def applicationSpecialWorkspaces():
-    # From citr0mods V1-3
+    # From fruityEnd4 V1-3
     specialWorkspacesDescription = '''
     \033[93mSpecific Special Workspaces\033[00m
     If you've used the caelestia shell then you are very famillar with this one.
@@ -182,8 +183,8 @@ def applicationSpecialWorkspaces():
                 print('Rewriten Line that contains "',key+'" with "',newKey+'"')
 
         newKeybinds = [
-            "\nbind = Super, S, togglespecialworkspace, spotify # Spotify Window",
-            "\nbind = Super, D, togglespecialworkspace, discord # Discord Window"
+            '\nbind = Super, S, togglespecialworkspace, spotify # Spotify Window',
+            '\nbind = Super, D, togglespecialworkspace, discord # Discord Window'
         ]
         for key in newKeybinds:
             if not lookInFile(keybindsCustomConf, key):
@@ -265,7 +266,7 @@ def autoStartSteam():
     else:
         whatToAddTofruityEnd4.append('''\n
 ## Auto Start Steam
-exec-once = wait 5 && steam -silent''')
+exec-once = steam -silent''')
 
 def mouseAcceleration():
     mouseAccelerationDescription = '''
@@ -384,7 +385,7 @@ def disableSleep():
       It will break things
     - Disabling this on laptops will have lower battery life!
 
-    Reccomended: No
+    Reccomended: Depends
 
     '''
     print(description)
@@ -403,6 +404,24 @@ listener {
 #}
 '''
         fileOverwrite(hypridleConf, original, new)
+
+def betterTerm():
+    description = '''
+    \033[93mBetter Terminal - ZSH\033[00m
+    If you have used the terminal, you may have noticed some issues relating to 
+    certain commands, for instnace, the update command. This patch 
+    fixes it as this changes the terminal type from fish to zsh. 
+    This fixes the terminal. There are some bugs, as if end-4 changes one thing
+    about starship or kitty, things can break.
+
+    Reccomended: Yes
+    '''
+    print(description)
+    userChoice = input('Would you like to apply this patch y/N: ')
+    if userChoice.lower() == 'n':
+        print('Skipped!')
+    else:
+        toGrabFromZSH = requests.get()
 
 def addNewKeybinds():
     for key in whatToAddToCustomKeybinds:
