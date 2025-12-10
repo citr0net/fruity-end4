@@ -194,21 +194,21 @@ def applicationSpecialWorkspaces():
 ## Discord (Discord Client)
 windowrulev2 = workspace special:discord, class:^(discord)$
 workspace = special:discord, gapsout:30, on-startup:hide
-exec-once = discord
+exec-once = wait 2 && discord
                 ''')
         else:
             whatToAddTofruityEnd4.append('''\n
 ## Discord (Discord Client)
 windowrulev2 = workspace special:discord, class:^(vesktop)$
 workspace = special:discord, gapsout:30, on-startup:hide
-exec-once = vesktop
+exec-once = wait 2 && vesktop
                 ''')
 
         whatToAddTofruityEnd4.append('''\n
 ## Spotify
 windowrulev2 = workspace special:spotify, class:^(Spotify)$
 workspace = special:spotify, gapsout:30, on-startup:hide
-exec-once = spotify
+exec-once = wait 2 && spotify
         ''')
     else:
         print('Skipped!')
